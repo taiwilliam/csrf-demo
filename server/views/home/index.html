@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>東森購物</title>
+    <link rel="stylesheet" href="./home/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-easy-loading@2.0.0-rc.2/dist/jquery.loading.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/jquery-easy-loading@2.0.0-rc.2/src/loading.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card card--side">
+        <div class="card__header">
+          <p><span class="js-name"></span>的帳戶</p>
+        </div>
+        <div class="card__body">
+          <p>臺幣存款: <span class="js-deposit"></span></p>
+        </div>
+        <div class="card__footer">
+          <p>匯款紀錄</p>
+          <div class="js-record-wrap"></div>
+        </div>
+      </div>
+
+      <div class="card m-2 mx-auto">
+        <div class="card__header">
+          <p>轉帳</p>
+        </div>
+        <div class="card__body">
+          <form action="" name="js-transfer-form">
+            <div class="input-wrap">
+              <label for="amount">金額</label>
+              <input id="amount" name="amount" type="number" />
+            </div>
+            <div class="input-wrap">
+              <label for="account">轉出帳號</label>
+              <input id="account" name="account" type="text" />
+            </div>
+            <div class="input-wrap">
+              <label for="description">備註</label>
+              <textarea id="description" name="description" rows="3"></textarea>
+            </div>
+            <div class="py-2">
+              <button type="button" class="btn w-full js-transfer-submit">
+                轉帳
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="alert js-alert">
+        <p class="alert__text"></p>
+      </div>
+    </div>
+    <script src="./home/index.js"></script>
+  </body>
+</html>
