@@ -15,7 +15,12 @@ const PORT = 9001;
 // 開啟跨域
 app.use(
   cors({
-    origin: [`http://127.0.0.1:${PORT}`, `http://localhost:${PORT}`, "http://localhost:5500"],
+    origin: [
+      `http://127.0.0.1:${PORT}`,
+      `http://localhost:${PORT}`,
+      "http://localhost:5500",
+      "https://taiwilliam.github.io/",
+    ],
     credentials: true,
   })
 );
@@ -54,12 +59,10 @@ app.post("/login", async (req, res, next) => {
   // 4. 設定cookie
   res.cookie("et_session", session, cookie.options);
 
-  console.log(123123)
   return res.json({ msg: "登入成功" });
 });
 
 app.post("/user", async (req, res, next) => {
-  console.log(req.cookies);
   // 1. 驗證
   if (req.cookies.et_session === undefined)
     return next({ status: 403, code: 1 });
