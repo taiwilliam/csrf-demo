@@ -19,7 +19,7 @@ app.use(
       `http://127.0.0.1:${PORT}`,
       `http://localhost:${PORT}`,
       "http://localhost:5500",
-      "https://taiwilliam.github.io/",
+      "https://taiwilliam.github.io",
     ],
     credentials: true,
   })
