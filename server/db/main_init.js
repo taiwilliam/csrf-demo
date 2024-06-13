@@ -1,5 +1,6 @@
-{
+module.exports = {
   "users": [
+    { "id": 0, "account": "ETMall", "deposit": 10000000 },
     { "id": 1, "account": "william.tai", "password": "1019" },
     { "id": 2, "account": "terry.lee", "password": "1225" },
     { "id": 3, "account": "bennett.shen", "password": "0401" },

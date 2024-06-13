@@ -2,7 +2,8 @@ const URL = "http://127.0.0.1:9001";
 const LOGIN_URL = "/login";
 const GET_USER_URL = `${URL}/user`;
 const GET_RECORD_URL = `${URL}/record`;
-const GET_TRANSFER_URL = `${URL}/transfer`;
+const POST_TRANSFER_URL = `${URL}/transfer`;
+const POST_RESET_URL = `${URL}/reset`;
 
 $(document).ready(() => {
   fetchAll();
@@ -13,17 +14,28 @@ function fetchAll() {
   fetchRecord();
 }
 
+$(".js-reset-submit").on("click", (event) => {
+  event.stopPropagation();
+  btnDisabled(true);
+  const url = POST_RESET_URL;
+
+  $.post(url)
+    .done(transferSuccessTodo)
+    .fail(transferErrorTodo)
+    .always(btnDisabled(false));
+});
+
 $(".js-transfer-submit").on("click", (event) => {
   event.stopPropagation();
-  btnSwitch(true);
+  btnDisabled(true);
   const form = $(event.target).closest("form");
   const data = getFormData(form);
-  const url = GET_TRANSFER_URL;
+  const url = POST_TRANSFER_URL;
 
   $.post(url, data)
     .done(transferSuccessTodo)
     .fail(transferErrorTodo)
-    .always(btnSwitch(false));
+    .always(btnDisabled(false));
 });
 
 function transferSuccessTodo(res) {
@@ -71,9 +83,9 @@ function renderRecord(data) {
       </div>
       <div class="record__body">
         <div class="record__body__item">
-          <span class="record__body__item__title ${isIn ? "in-text" : "in-out"}">${
-      isIn ? "轉入" : "轉出"
-    }</span>
+          <span class="record__body__item__title ${
+            isIn ? "in-text" : "in-out"
+          }">${isIn ? "轉入" : "轉出"}</span>
           <p>${item.amount}</p>
         </div>
         <div class="record__body__item">
@@ -110,7 +122,7 @@ function errAlert(msg) {
   setTimeout(() => alertEl.fadeOut(200), 3000);
 }
 
-function btnSwitch(open) {
+function btnDisabled(open) {
   $(".js-transfer-submit").attr("disabled", open);
 }
 
@@ -121,6 +133,6 @@ function resetTransferForm() {
 }
 
 $.ajaxSetup({
-  beforeSend: () => $( "body" ).loading(),
-  complete: () => $( "body" ).loading('stop')
-})
+  beforeSend: () => $("body").loading(),
+  complete: () => $("body").loading("stop"),
+});

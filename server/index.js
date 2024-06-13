@@ -6,15 +6,22 @@ const cookie = require("./constant/cookies");
 const authService = require("./services/auth");
 const userService = require("./services/user");
 const recordService = require("./services/record");
+const globalService = require("./services/global");
 const transferService = require("./services/transfer");
 const errMsgMap = require("./constant/errorMessageMap");
 const app = express();
 const { DOMAIN, PORT } = require("./constant/index");
 
-// @解決方案一 限制跨域請求
+// @解決方案二 驗證 origin
 // app.use(function(req, res, next) {
 //   // 當POST時 要驗證是否為跨預請求 若是跨預則阻擋
 //   if(req.method == "POST" && !DOMAIN.includes(req.get('origin'))) return res.status(403).json({ msg: "無權限" });
+//   next()
+// })
+
+// @解決方案三 驗證 referer
+// app.use(function(req, res, next) {
+//   if(req.method == "POST" && !DOMAIN.includes(req.get('referer'))) return res.status(403).json({ msg: "無權限" });
 //   next()
 // })
 
@@ -95,6 +102,21 @@ app.post("/transfer", async (req, res, next) => {
 
   return res.json({ msg: "成功" });
 });
+
+// 重置資料庫
+app.post("/reset", async (req, res, next) => {
+  // 1. 驗證
+  if (req.cookies.et_session === undefined)
+    return next({ status: 403, code: 1 });
+  const session = await authService.sessionGate(req);
+  if (session === undefined) return next({ status: 403, code: 1 });
+
+  // 2. 重製資料庫
+  await globalService.resetDB(req);
+
+  return res.json({ msg: "成功" });
+});
+
 
 // 錯誤處理
 app.use((err, req, res, next) => {
