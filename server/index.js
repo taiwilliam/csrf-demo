@@ -1,7 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const path = require("path");
 const cookie = require("./constant/cookies");
 const authService = require("./services/auth");
@@ -10,20 +9,14 @@ const recordService = require("./services/record");
 const transferService = require("./services/transfer");
 const errMsgMap = require("./constant/errorMessageMap");
 const app = express();
-const PORT = 9001;
+const { DOMAIN, PORT } = require("./constant/index");
 
-// 開啟跨域
-app.use(
-  cors({
-    origin: [
-      `http://127.0.0.1:${PORT}`,
-      `http://localhost:${PORT}`,
-      "http://localhost:5500",
-      "https://taiwilliam.github.io",
-    ],
-    credentials: true,
-  })
-);
+// @解決方案一 限制跨域請求
+// app.use(function(req, res, next) {
+//   // 當POST時 要驗證是否為跨預請求 若是跨預則阻擋
+//   if(req.method == "POST" && !DOMAIN.includes(req.get('origin'))) return res.status(403).json({ msg: "無權限" });
+//   next()
+// })
 
 // 安裝middleware
 app.use(cookieParser());
@@ -41,11 +34,7 @@ app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "/views/home/index.html"))
 );
 
-app.post("/test", (req, res, next) => {
-  return res.json({ msg: "成功" });
-});
-
-// bad login api
+// 登入
 app.post("/login", async (req, res, next) => {
   // 1. 驗證
   const user = await authService.loginGate(req);
@@ -62,6 +51,7 @@ app.post("/login", async (req, res, next) => {
   return res.json({ msg: "登入成功" });
 });
 
+// 獲取用戶資訊
 app.post("/user", async (req, res, next) => {
   // 1. 驗證
   if (req.cookies.et_session === undefined)

@@ -7,6 +7,9 @@ const options = {
   sameSite: "none", // "strict" | "lax" | "none"（安全必須為真） 當請求來自於同源時才發送
 };
 
+// @解決方案二
+// sameSite: "lax"
+
 module.exports = {
   options
 }
